@@ -1,4 +1,8 @@
+import 'package:fishy/Home.dart';
+import 'package:fishy/Homepage.dart';
 import 'package:fishy/Phone_number.dart';
+import 'package:fishy/intro_page.dart';
+import 'package:fishy/otp_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home:PhoneNumber()
+      home:Home()
     );
   }
 }
