@@ -63,6 +63,7 @@ flutter:
     - assets/fishy1.jpg
     - assets/fishy2.jpg
     - assets/fishy3.jpg
+    - assets/banner1.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
