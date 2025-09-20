@@ -38,11 +38,10 @@ class _OtpPageState extends State<OtpPage> {
               borderColor: Colors.cyan,
               showFieldAsBox: true,
               onSubmit: (String verificationCode) {
-                // This gets called when all 4 boxes are filled
                 print("Entered OTP: $verificationCode");
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("OTP Entered")),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("OTP Entered")));
               },
             ),
           ],
