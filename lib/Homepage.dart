@@ -14,13 +14,18 @@ class _HomePageState extends State<HomePage> {
     'assets/banner1.jpg',
     'assets/banner1.jpg',
   ];
+  List<String> categories = [
+    'Fresh Fish (Cleaned & Whole)',
+    'Cut Fish in Packets',
+    'Dried Fish',
+    'Frozen Fish',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         children: [
-
           Row(
             children: [
               Expanded(
@@ -51,38 +56,52 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
 
-        const SizedBox(height: 50),
+          const SizedBox(height: 50),
 
-        CarouselSlider(
-          options: CarouselOptions(
-            height: 200,
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 200,
 
-            autoPlay: true, // automatically slide
-            enlargeCenterPage: true,
-            viewportFraction: .9,
-            autoPlayInterval: const Duration(seconds: 3),
-          ),
-          items: bannerImages.map((imagePath) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: AssetImage(imagePath),
-                      fit: BoxFit.cover,
+              autoPlay: true, // automatically slide
+              enlargeCenterPage: true,
+              viewportFraction: .9,
+              autoPlayInterval: const Duration(seconds: 3),
+            ),
+            items: bannerImages.map((imagePath) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                );
-              },
-            );
-          }).toList(),
-
-        ),
-     ] ),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 40),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Categories",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green.shade900,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
