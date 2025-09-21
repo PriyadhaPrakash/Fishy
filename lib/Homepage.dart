@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
     'assets/banner1.jpg',
     'assets/banner1.jpg',
   ];
-  List<String> categories = [
+ final List<String> categories = [
     'Fresh Fish (Cleaned & Whole)',
     'Cut Fish in Packets',
     'Dried Fish',
@@ -97,8 +97,40 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                   color: Colors.green.shade900,
                 ),
-              ),
+              ),const SizedBox(height: 30,)
             ],
+          ),
+          SizedBox(
+            height: 85,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                return GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        category, // <-- using the variable here
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                );
+              },
+            ),
           ),
         ],
       ),
