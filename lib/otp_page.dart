@@ -41,6 +41,7 @@ class _OtpPageState extends State<OtpPage> {
                 numberOfFields: 4,
                 borderColor: Colors.cyan,
                 showFieldAsBox: true,
+                textStyle: const TextStyle(color: Colors.white),
                 onSubmit: (String verificationCode) {
                   print("Entered OTP: $verificationCode");
                   ScaffoldMessenger.of(
