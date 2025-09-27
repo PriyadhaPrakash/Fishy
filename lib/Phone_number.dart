@@ -64,7 +64,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    transitionDuration: const Duration(milliseconds: 50),
+                    transitionDuration: const Duration(milliseconds: 300),
                     pageBuilder: (context, animation, secondaryAnimation) => const OtpPage(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return FadeTransition(
