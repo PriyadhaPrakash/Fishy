@@ -1,3 +1,4 @@
+import 'package:fishy/otp_page.dart';
 import 'package:flutter/material.dart';
 
 class PhoneNumber extends StatefulWidget {
@@ -59,7 +60,22 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   //borderRadius: BorderRadius.zero, //Rectangular border
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 50),
+                    pageBuilder: (context, animation, secondaryAnimation) => const OtpPage(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  ),
+                );
+
+              },
               child: const Text('Continue'),
 
             ),
