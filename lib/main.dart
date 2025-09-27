@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       ),
 
 
-      home:PhoneNumber(),
+      home:OtpPage(),
 
 
 
