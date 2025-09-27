@@ -38,7 +38,11 @@ class MyApp extends StatelessWidget {
       ),
 
 
+<<<<<<< HEAD
       home:OtpPage(),
+=======
+      home:Home()
+>>>>>>> b7770b5c6e6d30d6aa44db3a8bc2abbbdf49624f
 
 
 

@@ -11,18 +11,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
 
-  // Pages for each tab
-  final List<Widget> _pages = [
-    const HomePage(),
-    const Center(child: Text("")),
-    const Center(child: Text("")),
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF151F24),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -30,43 +26,29 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 Text(
-                  "Delivery To...",
+                  "FreshCatch",
                   style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green.shade900,
+                    color: Colors.white,
                     fontFamily: 'Roboto',
                   ),
                 ),
-                const SizedBox(width: 4),
-                GestureDetector(onTap: (){},child: Icon(Icons.keyboard_arrow_down),)
+
               ],
             ),
-            Text("Velupadam,kerala,63102,India",style: TextStyle(fontSize:12,color: Colors.black ),),
+
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart,color: Colors.white,)),
 
         ],
       ),
-      body: _pages[_selectedIndex],
+body: HomePage(),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        selectedItemColor: Colors.green.shade900,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: "Menu"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-      ),
+
+
 
     );
   }
