@@ -39,7 +39,7 @@ class _OtpPageState extends State<OtpPage> {
               SizedBox(height: 40),
               OtpTextField(
                 numberOfFields: 4,
-                textStyle: TextStyle(color: Colors.white),
+
                 borderColor: Colors.cyan,
                 showFieldAsBox: true,
                 textStyle: const TextStyle(color: Colors.white),

@@ -14,55 +14,28 @@ class _HomePageState extends State<HomePage> {
     'assets/banner1.jpg',
     'assets/banner1.jpg',
   ];
- final List<String> categories = [
-    'Fresh Fish (Cleaned & Whole)',
-    'Cut Fish in Packets',
-    'Dried Fish',
-    'Frozen Fish',
+
+  final List<Map<String, String>> categories = [
+    {"name": "Salmon", "price": "\$25/kg"},
+    {"name": "Tuna", "price": "\$20/kg"},
+    {"name": "Cod", "price": "\$15/kg"},
+    {"name": "Shrimp", "price": "\$18/kg"},
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF151F24),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.search, color: Colors.black54),
-                      const SizedBox(width: 8),
-                      const Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search for fish...",
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Icon(Icons.mic, color: Colors.green.shade900),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          const SizedBox(height: 20),
 
-          const SizedBox(height: 50),
-
+          // 🔹 Banner Carousel
           CarouselSlider(
             options: CarouselOptions(
               height: 200,
-
-              autoPlay: true, // automatically slide
+              autoPlay: true,
               enlargeCenterPage: true,
               viewportFraction: .9,
               autoPlayInterval: const Duration(seconds: 3),
@@ -85,51 +58,60 @@ class _HomePageState extends State<HomePage> {
               );
             }).toList(),
           ),
-          const SizedBox(height: 40),
+
+          const SizedBox(height: 30),
+
+          // 🔹 Title
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
                 "Categories",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green.shade900,
+                  color: Colors.white,
                 ),
-              ),const SizedBox(height: 30,)
+              ),
+              SizedBox(height: 30),
             ],
           ),
-          SizedBox(
-            height: 85,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        category, // <-- using the variable here
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
+
+          // 🔹 Grid of categories
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GridView.count(
+              shrinkWrap: true, //
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              children: List.generate(categories.length, (index) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          categories[index]["name"]!,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                      ),
+                        const SizedBox(height: 6),
+                        Text(
+                          categories[index]["price"]!,
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.grey),
+                        ),
+                      ],
                     ),
                   ),
-
                 );
-              },
+              }),
             ),
           ),
         ],
