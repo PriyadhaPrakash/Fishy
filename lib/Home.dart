@@ -23,18 +23,31 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "FISHY",
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            color: Colors.green.shade900,
-            fontFamily: 'Roboto',
-          ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Delivery To...",
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green.shade900,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+                const SizedBox(width: 4),
+                GestureDetector(onTap: (){},child: Icon(Icons.keyboard_arrow_down),)
+              ],
+            ),
+            Text("Velupadam,kerala,63102,India",style: TextStyle(fontSize:12,color: Colors.black ),),
+          ],
         ),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+
         ],
       ),
       body: _pages[_selectedIndex],
