@@ -15,7 +15,7 @@ class _OtpPageState extends State<OtpPage> {
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const  Color(0xFF151F24),
-        leading: BackButton(),
+        leading: BackButton(color: Colors.white),
         title: Text(
           "Verification",
           style: TextStyle(color: const Color(0xFFFFFFFF), fontSize: 18),
@@ -25,7 +25,7 @@ class _OtpPageState extends State<OtpPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 55),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
