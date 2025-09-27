@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fishy/favourites.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,8 +21,20 @@ class _HomePageState extends State<HomePage> {
     {"name": "Tuna", "price": "\$20/kg"},
     {"name": "Cod", "price": "\$15/kg"},
     {"name": "Shrimp", "price": "\$18/kg"},
+    {"name": "Salmon", "price": "\$25/kg"},
+    {"name": "Tuna", "price": "\$20/kg"},
+    {"name": "Cod", "price": "\$15/kg"},
+    {"name": "Shrimp", "price": "\$18/kg"},
   ];
+  List<Map<String, String>> favoriteList = [];
+  List<bool> isFavorite = [];
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize isFavorite list
+    isFavorite = List<bool>.filled(categories.length, false);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,54 +75,102 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 30),
 
           // 🔹 Title
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                "Categories",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 30),
-            ],
+          const Text(
+            "Categories",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
+          const SizedBox(height: 30),
 
-          // 🔹 Grid of categories
+          // 🔹 Grid of categories with name & price below each card
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: GridView.count(
-              shrinkWrap: true, //
+              shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
+              mainAxisSpacing: 20,
               children: List.generate(categories.length, (index) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 4,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Stack(
                       children: [
-                        Text(
-                          categories[index]["name"]!,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                        // 🔹 Card
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 4,
+                          child: Container(
+                            height: 100,
+                            width: double.infinity,
+
+                          ),
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          categories[index]["price"]!,
-                          style: const TextStyle(
-                              fontSize: 14, color: Colors.grey),
+
+
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon:  Icon(
+                                isFavorite[index]
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,),
+                              color: isFavorite[index] ? Colors.red : Colors.grey,
+                              iconSize: 20,
+                              onPressed: () {
+
+                                setState(() {
+                                  isFavorite[index] = !isFavorite[index];
+                                  if (isFavorite[index]) {
+                                    favoriteList.add(categories[index]);
+                                  } else {
+                                    favoriteList.remove(categories[index]);
+                                  }
+                                });
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    const SizedBox(height: 7),
+
+                    // Name below the card
+                    Expanded(
+                      child: Text(
+                        categories[index]["name"]!,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 0),
+                    Expanded(
+                      child: Text(
+                        categories[index]["price"]!,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+
+                  ],
                 );
               }),
             ),

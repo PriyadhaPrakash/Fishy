@@ -1,9 +1,11 @@
 
 import 'package:fishy/Homepage.dart';
+import 'package:fishy/favourites.dart';
 import 'package:flutter/material.dart';
 
 
 class Home extends StatefulWidget {
+
   const Home({super.key});
 
   @override
@@ -12,6 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  List<Map<String, String>> favoriteList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +44,20 @@ class _HomeState extends State<Home> {
           ],
         ),
         actions: [
+          IconButton(onPressed: () { Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FavoPage(favoriteList: favoriteList),
+            ),
+          );}, icon: const Icon(Icons.favorite_border_sharp,color: Colors.white,)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart,color: Colors.white,)),
+
 
         ],
       ),
-body: HomePage(),
+body: HomePage(
+
+),
 
 
 
