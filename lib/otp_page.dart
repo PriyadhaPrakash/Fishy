@@ -68,8 +68,8 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     const Text(
                       "Didn't receive the otp ?",
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                      style: TextStyle(color: Colors.grey,fontSize: 15),
+                    ),TextButton(onPressed: (){}, child: const Text("resend",style: TextStyle(color: Colors.blueAccent),))
                   ],
                 ),
               ),
