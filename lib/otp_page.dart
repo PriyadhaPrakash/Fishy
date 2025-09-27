@@ -12,9 +12,11 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF0F172A),
         leading: BackButton(),
-        title: Text("OTP Verification"),
+        title: Text("OTP Verification",style: TextStyle(color: const Color(0xFFFFFFFF) ),),
         centerTitle: true,
       ),
       body: Padding(
@@ -24,13 +26,13 @@ class _OtpPageState extends State<OtpPage> {
           children: [
             Text(
               "Verification",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 32,color: Color(0xFFFFFFFF) ),
             ),
             SizedBox(height: 20),
             Text(
               "Enter the 4-digit OTP sent to your phone",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16,color: Color(0xFFFFFFFF) ),
             ),
             SizedBox(height: 40),
             OtpTextField(
