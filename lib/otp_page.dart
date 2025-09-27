@@ -12,29 +12,36 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0F172A),
-        leading: BackButton(),
-        title: Text("Verification",style: TextStyle(color: const Color(0xFFFFFFFF),fontSize: 18 ),),
+        backgroundColor: const  Color(0xFF151F24),
+        leading: BackButton(color: Colors.white),
+        title: Text(
+          "Verification",
+          style: TextStyle(color: const Color(0xFFFFFFFF), fontSize: 18),
+        ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 55),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 "Enter Code",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28,color: Color(0xFFFFFFFF) ),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 28,
+                  color: Color(0xFFFFFFFF),
+                ),
               ),
               SizedBox(height: 20),
               Text(
                 "We sent a 4-digit code sent \n to your phone",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16,color:Colors.grey ),
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               SizedBox(height: 40),
               OtpTextField(
@@ -42,13 +49,29 @@ class _OtpPageState extends State<OtpPage> {
 
                 borderColor: Colors.cyan,
                 showFieldAsBox: true,
-                textStyle: const TextStyle(color: Colors.white),
+                textStyle: const TextStyle(color: Colors.grey),
                 onSubmit: (String verificationCode) {
                   print("Entered OTP: $verificationCode");
+
                   ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(SnackBar(content: Text("OTP Entered")));
                 },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Didn't receive the otp ?",
+                      style: TextStyle(color: Colors.grey,fontSize: 15),
+                    ),TextButton(onPressed: (){}, child: const Text("resend",style: TextStyle(color: Colors.blueAccent),))
+                  ],
+                ),
               ),
             ],
           ),
