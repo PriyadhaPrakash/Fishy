@@ -30,7 +30,7 @@ class _IntroPageState extends State<IntroPage> {
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.white,
                 letterSpacing: 1.3,
               ),
             ),
@@ -58,7 +58,7 @@ class _IntroPageState extends State<IntroPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
+                  backgroundColor: Color(0xFF18A2FE),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(35),
                   ),
