@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'Home.dart';
+import 'profile_page.dart';
 
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
@@ -83,7 +83,7 @@ class _OtpPageState extends State<OtpPage> {
                     if (_enteredOtp.trim().length == 4) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
