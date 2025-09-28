@@ -31,10 +31,7 @@ class _HomePageState extends State<HomePage> {
     {"name": "Tuna", "price": "\$20/kg"},
     {"name": "Cod", "price": "\$15/kg"},
     {"name": "Shrimp", "price": "\$18/kg"},
-    {"name": "Salmon", "price": "\$25/kg"},
-    {"name": "Tuna", "price": "\$20/kg"},
-    {"name": "Cod", "price": "\$15/kg"},
-    {"name": "Shrimp", "price": "\$18/kg"},
+
   ];
 
   List<bool> isFavorite = [];

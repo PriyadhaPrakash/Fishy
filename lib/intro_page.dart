@@ -59,6 +59,7 @@ class _IntroPageState extends State<IntroPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF18A2FE),
+
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(35),
                   ),
