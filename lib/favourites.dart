@@ -1,3 +1,4 @@
+import 'package:fishy/ProductPage.dart';
 import 'package:flutter/material.dart';
 
 class FavoPage extends StatelessWidget {
@@ -126,7 +127,14 @@ class FavoPage extends StatelessWidget {
 
           return InkWell(
             borderRadius: BorderRadius.circular(15),
-            onTap: () => _showItemDetails(context, item),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsPage(product: item),
+                ),
+              );
+            },
             child: Card(
               color: const Color(0xFF1E2A32),
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
