@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
   void toggleFavorite(Map<String, String> item) {
     setState(() {
       if (favoriteList.contains(item)) {
@@ -24,6 +25,32 @@ class _HomeState extends State<Home> {
   }
 
   List<Map<String, String>> favoriteList = [];
+  List<Widget> _screens() {
+    return [
+      HomePage(
+        favoriteList: favoriteList,
+        onToggleFavorite: toggleFavorite,
+      ),
+      Center(
+        child: Text(
+          "Store Page",
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
+      Center(
+        child: Text(
+          "My Orders",
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
+      Center(
+        child: Text(
+          "Profile Page",
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +91,37 @@ class _HomeState extends State<Home> {
 
         ],
       ),
-      body:HomePage(
-        favoriteList: favoriteList,
-        onToggleFavorite: toggleFavorite,
-      )
-
+      body: _screens()[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF151F24),
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: "Store",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: "My Orders",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+      ),
 
 
 
