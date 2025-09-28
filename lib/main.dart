@@ -37,11 +37,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-<<<<<<< HEAD
-      home:ProfilePage()
-=======
-      home: ProfilePage()
->>>>>>> 2b3e8418b885f28357e4742648273803dba284da
+      home:OtpPage()
     );
   }
 }
