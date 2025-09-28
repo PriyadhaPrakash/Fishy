@@ -22,7 +22,7 @@ class _OtpPageState extends State<OtpPage> {
         leading: const BackButton(color: Colors.white),
         title: const Text(
           "Verification",
-          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18),
+          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18,fontFamily: 'Roboto'),
         ),
         centerTitle: true,
         elevation: 0,
