@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fishy/favourites.dart';
+import 'package:fishy/ProductPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,14 +11,13 @@ class HomePage extends StatefulWidget {
     required this.favoriteList,
     required this.onToggleFavorite,
   });
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, String>> favoriteList = [];
-
-
 
   final List<String> bannerImages = [
     'assets/banner1.jpg',
@@ -31,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     {"name": "Tuna", "price": "\$20/kg"},
     {"name": "Cod", "price": "\$15/kg"},
     {"name": "Shrimp", "price": "\$18/kg"},
-
   ];
 
   List<bool> isFavorite = [];
@@ -39,9 +37,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Initialize isFavorite list
     isFavorite = List<bool>.filled(categories.length, false);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const SizedBox(height: 20),
 
-          // 🔹 Banner Carousel
+          // Banner Carousel
           CarouselSlider(
             options: CarouselOptions(
               height: 200,
@@ -81,7 +79,6 @@ class _HomePageState extends State<HomePage> {
 
           const SizedBox(height: 30),
 
-          // 🔹 Title
           const Text(
             "Categories",
             style: TextStyle(
@@ -92,7 +89,6 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 30),
 
-          // 🔹 Grid of categories with name & price below each card
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: GridView.count(
@@ -101,28 +97,39 @@ class _HomePageState extends State<HomePage> {
               crossAxisCount: 2,
               crossAxisSpacing: 12,
               mainAxisSpacing: 20,
+              childAspectRatio: 0.9, // <-- control height vs width
               children: List.generate(categories.length, (index) {
-                final item = categories[index]; // <-- item is defined here
-                final isFav = favoriteList.contains(item);
+                final item = categories[index];
                 return Column(
+                  mainAxisSize: MainAxisSize.min, // <-- prevents overflow
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
                       children: [
-                        // 🔹 Card
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          elevation: 4,
-                          child: Container(
-                            height: 100,
-                            width: double.infinity,
-
+                        // White card clickable
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailsPage(product: item),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            elevation: 4,
+                            child: Container(
+                              height: 100,
+                              width: double.infinity,
+                            ),
                           ),
                         ),
 
-
+                        // Favorite button
                         Positioned(
                           top: 8,
                           right: 8,
@@ -132,20 +139,22 @@ class _HomePageState extends State<HomePage> {
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              icon:  Icon(
+                              icon: Icon(
                                 isFavorite[index]
                                     ? Icons.favorite
-                                    : Icons.favorite_border,),
-                              color: isFavorite[index] ? Colors.red : Colors.grey,
+                                    : Icons.favorite_border,
+                              ),
+                              color:
+                              isFavorite[index] ? Colors.red : Colors.grey,
                               iconSize: 20,
                               onPressed: () {
                                 widget.onToggleFavorite(item);
                                 setState(() {
                                   isFavorite[index] = !isFavorite[index];
                                   if (isFavorite[index]) {
-                                    favoriteList.add(categories[index]);
+                                    favoriteList.add(item);
                                   } else {
-                                    favoriteList.remove(categories[index]);
+                                    favoriteList.remove(item);
                                   }
                                 });
                               },
@@ -155,30 +164,22 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(height: 7),
-
-                    // Name below the card
-                    Expanded(
-                      child: Text(
-                        categories[index]["name"]!,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                    Text(
+                      item["name"]!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-
-                    const SizedBox(height: 0),
-                    Expanded(
-                      child: Text(
-                        categories[index]["price"]!,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
+                    const SizedBox(height: 3),
+                    Text(
+                      item["price"]!,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
                       ),
                     ),
-
                   ],
                 );
               }),
