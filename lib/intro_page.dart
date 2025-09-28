@@ -12,7 +12,7 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color(0xFF151F24) ,
+      backgroundColor: const Color(0xFF151F24),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +23,6 @@ class _IntroPageState extends State<IntroPage> {
               height: 220,
             ),
             const SizedBox(height: 25),
-
 
             const Text(
               "Welcome to FreshCatch",
@@ -36,7 +35,6 @@ class _IntroPageState extends State<IntroPage> {
             ),
             const SizedBox(height: 40),
 
-
             SizedBox(
               width: 180,
               height: 50,
@@ -47,13 +45,14 @@ class _IntroPageState extends State<IntroPage> {
                     PageRouteBuilder(
                       transitionDuration: const Duration(milliseconds: 300),
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                      const PhoneNumber(),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
+                          const PhoneNumber(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
                     ),
                   );
                 },
