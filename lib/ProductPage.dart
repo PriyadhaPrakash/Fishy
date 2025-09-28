@@ -16,13 +16,12 @@ class ProductDetailsPage extends StatelessWidget {
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
-        title: Text(product['name'] ?? 'Product',
-            style: const TextStyle(color: Colors.white)),
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // IMAGE
             product['image'] != null
