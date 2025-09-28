@@ -17,9 +17,9 @@ class _IntroPageState extends State<IntroPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              'https://static.vecteezy.com/system/resources/previews/049/158/818/non_2x/grilled-meat-platter-with-assorted-cuts-and-garnishes-served-on-a-black-plate-cut-out-stock-png.png',
-              width: 220,
+            Image.asset(
+              'assets/meat_image.jpg',
+              width: 350,
               height: 220,
             ),
             const SizedBox(height: 25),
