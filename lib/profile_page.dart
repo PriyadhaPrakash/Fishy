@@ -23,7 +23,11 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text(
             "Delivery Address",
-            style: TextStyle(color: Colors.white, fontSize: 25),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontFamily: 'Roboto',
+            ),
           ),
         ),
       ),
