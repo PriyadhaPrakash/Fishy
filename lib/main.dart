@@ -38,13 +38,11 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-<<<<<<< HEAD
+
 
       home:Home()
 
-=======
-      home:ProfilePage()
->>>>>>> 8c2aa692870981abdeae8d198441421dd8e0d49f
+
     );
   }
 }
