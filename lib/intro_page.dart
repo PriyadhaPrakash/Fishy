@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'phone_number.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -16,7 +17,6 @@ class _IntroPageState extends State<IntroPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Food image
             Image.network(
               'https://static.vecteezy.com/system/resources/previews/049/158/818/non_2x/grilled-meat-platter-with-assorted-cuts-and-garnishes-served-on-a-black-plate-cut-out-stock-png.png',
               width: 220,
@@ -24,9 +24,9 @@ class _IntroPageState extends State<IntroPage> {
             ),
             const SizedBox(height: 25),
 
-            // Welcome text
+
             const Text(
-              "Welcome to Fresh Catch",
+              "Welcome to FreshCatch",
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -36,13 +36,26 @@ class _IntroPageState extends State<IntroPage> {
             ),
             const SizedBox(height: 40),
 
-            // Animated Sign Up Button
+
             SizedBox(
               width: 180,
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // handle signup
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      transitionDuration: const Duration(milliseconds: 300),
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                      const PhoneNumber(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green.shade700,
