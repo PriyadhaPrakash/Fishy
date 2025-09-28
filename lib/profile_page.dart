@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: const BackButton(color: Colors.white),
         backgroundColor: const Color(0xFF151F24),
         title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text(
             "Delivery Address",
             style: TextStyle(color: Colors.white, fontSize: 25),
