@@ -1,3 +1,4 @@
+import 'package:fishy/Cart.dart';
 import 'package:fishy/Home.dart';
 import 'package:fishy/Homepage.dart';
 import 'package:fishy/Phone_number.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home:Home()
+      home:CartPage()
     );
   }
 }
