@@ -13,6 +13,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void toggleFavorite(Map<String, String> item) {
+    setState(() {
+      if (favoriteList.contains(item)) {
+        favoriteList.remove(item);
+      } else {
+        favoriteList.add(item);
+      }
+    });
+  }
 
   List<Map<String, String>> favoriteList = [];
 
@@ -55,9 +64,11 @@ class _HomeState extends State<Home> {
 
         ],
       ),
-body: HomePage(
+      body:HomePage(
+        favoriteList: favoriteList,
+        onToggleFavorite: toggleFavorite,
+      )
 
-),
 
 
 

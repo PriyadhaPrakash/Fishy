@@ -3,13 +3,23 @@ import 'package:fishy/favourites.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final List<Map<String, String>> favoriteList;
+  final Function(Map<String, String>) onToggleFavorite;
 
+  const HomePage({
+    super.key,
+    required this.favoriteList,
+    required this.onToggleFavorite,
+  });
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Map<String, String>> favoriteList = [];
+
+
+
   final List<String> bannerImages = [
     'assets/banner1.jpg',
     'assets/banner1.jpg',
@@ -26,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     {"name": "Cod", "price": "\$15/kg"},
     {"name": "Shrimp", "price": "\$18/kg"},
   ];
-  List<Map<String, String>> favoriteList = [];
+
   List<bool> isFavorite = [];
 
   @override
@@ -95,6 +105,8 @@ class _HomePageState extends State<HomePage> {
               crossAxisSpacing: 12,
               mainAxisSpacing: 20,
               children: List.generate(categories.length, (index) {
+                final item = categories[index]; // <-- item is defined here
+                final isFav = favoriteList.contains(item);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -125,12 +137,12 @@ class _HomePageState extends State<HomePage> {
                             child: IconButton(
                               icon:  Icon(
                                 isFavorite[index]
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,),
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,),
                               color: isFavorite[index] ? Colors.red : Colors.grey,
                               iconSize: 20,
                               onPressed: () {
-
+                                widget.onToggleFavorite(item);
                                 setState(() {
                                   isFavorite[index] = !isFavorite[index];
                                   if (isFavorite[index]) {
