@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'Home.dart';
 
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
@@ -80,13 +81,16 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   onPressed: () {
                     if (_enteredOtp.trim().length == 4) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Verifying OTP")),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
                       );
-
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please enter a valid 4-digit OTP")),
+                        const SnackBar(
+                          content:
+                          Text("Please enter a valid 4-digit OTP"),
+                        ),
                       );
                     }
                   },
