@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CartItem {
   final String name;
-  final String price; // can be "200" or "₹200" — we parse safely when calculating totals
+  final String price;
   final String image;
   int quantity;
 
@@ -15,7 +15,7 @@ class CartItem {
   });
 }
 
-// Global cart list (single source of truth across your two pages)
+
 List<CartItem> cartList = [];
 
 class CartPage extends StatefulWidget {
@@ -26,6 +26,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  double deliveryCharge = 50.0;
+
   // Parse strings like "₹200" or "200" into double safely
   double _parsePrice(String p) {
     final cleaned = p.replaceAll(RegExp(r'[^\d.]'), '');
@@ -41,17 +43,22 @@ class _CartPageState extends State<CartPage> {
     return s;
   }
 
+  double get total {
+    return subtotal + deliveryCharge;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final total = subtotal; // delivery removed per request
-
     return Scaffold(
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
-        elevation: 0,
-        leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Navigator.pop(context)),
-        title: const Text("Cart", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
+
+
+        title: const Text(
+          "Cart",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
       ),
       body: Column(
         children: [
@@ -73,16 +80,19 @@ class _CartPageState extends State<CartPage> {
                 }
 
                 return Card(
+                  color: const  Color(0xFF151F24),
                   margin: const EdgeInsets.all(8),
                   child: ListTile(
                     leading: leading,
-                    title: Text(item.name),
-                    subtitle: Text("₹${_parsePrice(item.price).toStringAsFixed(2)} x ${item.quantity}"),
+                    title: Text(item.name, style: const TextStyle(color: Colors.white)),
+                    subtitle: Text(
+                        "₹${_parsePrice(item.price).toStringAsFixed(2)} x ${item.quantity}",
+                        style: const TextStyle(color: Colors.white)),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.remove),
+                          icon: const Icon(Icons.remove,color: Colors.white,),
                           onPressed: () {
                             setState(() {
                               if (item.quantity > 1) {
@@ -93,9 +103,9 @@ class _CartPageState extends State<CartPage> {
                             });
                           },
                         ),
-                        Text("${item.quantity}"),
+                        Text("${item.quantity}", style: const TextStyle(fontSize: 16,color: Colors.white)),
                         IconButton(
-                          icon: const Icon(Icons.add),
+                          icon: const Icon(Icons.add,color: Colors.white,),
                           onPressed: () {
                             setState(() {
                               item.quantity++;
@@ -110,7 +120,7 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
 
-          // totals container
+          // Totals container
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -125,6 +135,10 @@ class _CartPageState extends State<CartPage> {
                   Text("₹${subtotal.toStringAsFixed(2)}", style: const TextStyle(color: Colors.white)),
                 ]),
                 const SizedBox(height: 6),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  const Text("Delivery Charge", style: TextStyle(color: Colors.white)),
+                  Text("₹${deliveryCharge.toStringAsFixed(2)}", style: const TextStyle(color: Colors.white)),
+                ]),
                 const Divider(color: Colors.white30),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                   const Text("Total", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
@@ -139,7 +153,8 @@ class _CartPageState extends State<CartPage> {
                     }
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Proceeding to Checkout...")));
                   },
-                  child: const Text("Proceed to Checkout", style: TextStyle(color: Colors.blue)),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  child: const Text("Proceed to Checkout", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
