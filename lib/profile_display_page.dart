@@ -105,11 +105,10 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
-        leading: const BackButton(color: Colors.white),
-        title: const Text('Profile', style: TextStyle(color: Colors.white)),
+
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             // Top card with avatar and name
@@ -120,7 +119,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
               elevation: 4,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    vertical: 18.0, horizontal: 16),
+                    vertical: 10.0, horizontal: 16),
                 child: Row(
                   children: [
                     Stack(
