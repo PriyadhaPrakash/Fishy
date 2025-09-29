@@ -102,6 +102,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
@@ -109,6 +110,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
+
         child: Column(
           children: [
             // Top card with avatar and name
