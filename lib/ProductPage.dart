@@ -1,17 +1,30 @@
 import 'package:fishy/Cart.dart';
 import 'package:flutter/material.dart';
-List<CartItem> cartList = [];
+
+// Global cartList already exists in Cart.dart
+// List<CartItem> cartList = [];
 
 class ProductDetailsPage extends StatelessWidget {
-
   final Map<String, String> product;
-  final void Function(Map<String, String>)? onAddToCart;
 
   const ProductDetailsPage({
     super.key,
     required this.product,
-    this.onAddToCart,
   });
+
+  void addToCart(Map<String, String> product) {
+    // Check if product already exists in cart
+    final index = cartList.indexWhere((item) => item.name == product['name']);
+    if (index != -1) {
+      cartList[index].quantity++;
+    } else {
+      cartList.add(CartItem(
+        name: product['name']!,
+        price: product['price']!,
+        image: product['image'] ?? '',
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +32,7 @@ class ProductDetailsPage extends StatelessWidget {
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
-
+        title: Text(product['name'] ?? "Product"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -34,8 +47,7 @@ class ProductDetailsPage extends StatelessWidget {
                 : Container(
               height: 100,
               color: Colors.grey[800],
-              child: const Icon(Icons.image,
-                  size: 100, color: Colors.white54),
+              child: const Icon(Icons.image, size: 100, color: Colors.white54),
             ),
             const SizedBox(height: 20),
 
@@ -43,9 +55,7 @@ class ProductDetailsPage extends StatelessWidget {
             Text(
               product['name'] ?? "Unnamed",
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
+                  color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 10),
@@ -76,9 +86,8 @@ class ProductDetailsPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, padding: const EdgeInsets.all(16)),
                 onPressed: () {
-                  if (onAddToCart != null) {
-                    onAddToCart!(product);
-                  }  ScaffoldMessenger.of(context).showSnackBar(
+                  addToCart(product); // add to global cartList
+                  ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Added to cart"),
                       duration: Duration(seconds: 1),
