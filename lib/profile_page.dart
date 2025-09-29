@@ -81,20 +81,31 @@ class _ProfilePageState extends State<ProfilePage> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error fetching location: $e')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error fetching location: $e')));
     }
 
     setState(() => _isFetching = false);
   }
 
   void _continueToHome() {
+    if (_nameController.text.isEmpty ||
+        _addressController.text.isEmpty ||
+        _landmarkController.text.isEmpty ||
+        _locationController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields before continuing.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-        const Home(),
+        builder: (context) => const Home(),
       ),
     );
   }
@@ -119,56 +130,11 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TextField(
-                controller: _nameController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: const TextStyle(color: Colors.white70),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white38),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
+              _buildTextField(_nameController, 'Name'),
               const SizedBox(height: 16),
-              TextField(
-                controller: _addressController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Address',
-                  labelStyle: const TextStyle(color: Colors.white70),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white38),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
+              _buildTextField(_addressController, 'Address'),
               const SizedBox(height: 16),
-              TextField(
-                controller: _landmarkController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Landmark',
-                  labelStyle: const TextStyle(color: Colors.white70),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white38),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
+              _buildTextField(_landmarkController, 'Landmark'),
               const SizedBox(height: 16),
               TextField(
                 controller: _locationController,
@@ -216,10 +182,30 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text("Continue", style: TextStyle(fontSize: 18)),
+                child:
+                const Text("Continue", style: TextStyle(fontSize: 18)),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  TextField _buildTextField(TextEditingController controller, String label) {
+    return TextField(
+      controller: controller,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(color: Colors.white70),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white38),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
