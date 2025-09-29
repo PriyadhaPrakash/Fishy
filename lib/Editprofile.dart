@@ -41,10 +41,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       'address': addressController.text,
     };
 
-    // For now, just show a SnackBar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Profile updated successfully!')),
-    );
 
     Navigator.pop(context, updatedData); // Go back to profile page
   }
