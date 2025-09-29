@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'home.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,7 +25,6 @@ class _ProfilePageState extends State<ProfilePage> {
     LocationPermission permission;
 
     try {
-      // 1️⃣ Check if location services are enabled
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -34,7 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
         return;
       }
 
-      // 2️⃣ Check permissions
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -50,20 +49,23 @@ class _ProfilePageState extends State<ProfilePage> {
       if (permission == LocationPermission.deniedForever) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text(
-                  'Location permission permanently denied. Enable from settings.')),
+            content: Text(
+              'Location permission permanently denied. Enable from settings.',
+            ),
+          ),
         );
         setState(() => _isFetching = false);
         return;
       }
 
-      // 3️⃣ Get current GPS coordinates
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high,
+      );
 
-      // 4️⃣ Reverse geocoding to get street and city
-      List<Placemark> placemarks =
-      await placemarkFromCoordinates(position.latitude, position.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
@@ -75,16 +77,26 @@ class _ProfilePageState extends State<ProfilePage> {
       } else {
         setState(() {
           _locationController.text =
-          'Lat: ${position.latitude}, Lon: ${position.longitude}';
+              'Lat: ${position.latitude}, Lon: ${position.longitude}';
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching location: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error fetching location: $e')));
     }
 
     setState(() => _isFetching = false);
+  }
+
+  void _continueToHome() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            const Home(),
+      ),
+    );
   }
 
   @override
@@ -107,7 +119,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Name Field
               TextField(
                 controller: _nameController,
                 style: const TextStyle(color: Colors.white),
@@ -125,8 +136,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Address Field
               TextField(
                 controller: _addressController,
                 style: const TextStyle(color: Colors.white),
@@ -144,8 +153,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Landmark Field
               TextField(
                 controller: _landmarkController,
                 style: const TextStyle(color: Colors.white),
@@ -163,8 +170,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Location Field (Street & City)
               TextField(
                 controller: _locationController,
                 readOnly: true,
@@ -182,17 +187,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   suffixIcon: _isFetching
                       ? const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
+                          padding: EdgeInsets.all(12.0),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
                       : IconButton(
-                    icon: const Icon(Icons.my_location, color: Colors.white),
-                    onPressed: _getCurrentLocation,
+                          icon: const Icon(
+                            Icons.my_location,
+                            color: Colors.white,
+                          ),
+                          onPressed: _getCurrentLocation,
+                        ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: _continueToHome,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                    vertical: 15,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                child: const Text("Continue", style: TextStyle(fontSize: 18)),
               ),
             ],
           ),
