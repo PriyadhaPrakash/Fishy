@@ -1,12 +1,13 @@
 // profile_display_page.dart
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProfileDisplayPage extends StatelessWidget {
+class ProfileDisplayPage extends StatefulWidget {
   final String name;
   final String address;
   final String landmark;
   final String location; // street, city or lat/lon string
-  final ImageProvider? profileImage; // optional: pass AssetImage/NetworkImage/FileImage
 
   const ProfileDisplayPage({
     super.key,
@@ -14,8 +15,58 @@ class ProfileDisplayPage extends StatelessWidget {
     required this.address,
     required this.landmark,
     required this.location,
-    this.profileImage,
   });
+
+  @override
+  State<ProfileDisplayPage> createState() => _ProfileDisplayPageState();
+}
+
+class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
+  File? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
+  // Pick image from gallery or camera
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source, imageQuality: 85);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  // Show options to pick image
+  void _showImageOptions() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF202A30),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt, color: Colors.white),
+              title: const Text('Take Photo', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.camera); // Directly open camera
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library, color: Colors.white),
+              title: const Text('Choose from Gallery', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.gallery); // Directly open gallery
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _infoRow(IconData icon, String title, String value) {
     return Padding(
@@ -63,19 +114,38 @@ class ProfileDisplayPage extends StatelessWidget {
             // Top card with avatar and name
             Card(
               color: const Color(0xFF202A30),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
               elevation: 4,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 18.0, horizontal: 16),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Colors.white12,
-                      backgroundImage: profileImage,
-                      child: profileImage == null
-                          ? const Icon(Icons.person, color: Colors.white54, size: 36)
-                          : null,
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 36,
+                          backgroundColor: Colors.white12,
+                          backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
+                          child: _imageFile == null
+                              ? const Icon(Icons.person, color: Colors.white54, size: 36)
+                              : null,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: _showImageOptions,
+                            child: CircleAvatar(
+                              radius: 14,
+                              backgroundColor: Colors.blueAccent,
+                              child: const Icon(Icons.edit,
+                                  size: 16, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -83,13 +153,19 @@ class ProfileDisplayPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            name.isNotEmpty ? name : 'No name provided',
+                            widget.name.isNotEmpty
+                                ? widget.name
+                                : 'No name provided',
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            location.isNotEmpty ? location : 'Location not set',
+                            widget.location.isNotEmpty
+                                ? widget.location
+                                : 'Location not set',
                             style: const TextStyle(color: Colors.white70),
                           ),
                         ],
@@ -106,29 +182,31 @@ class ProfileDisplayPage extends StatelessWidget {
             Expanded(
               child: Card(
                 color: const Color(0xFF202A30),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text('Details',
-                          style: TextStyle(color: Colors.white70, fontSize: 14)),
+                          style:
+                          TextStyle(color: Colors.white70, fontSize: 14)),
                       const SizedBox(height: 12),
-                      _infoRow(Icons.location_on, 'Address', address),
+                      _infoRow(Icons.location_on, 'Address', widget.address),
                       const Divider(color: Colors.white24),
-                      _infoRow(Icons.place, 'Landmark', landmark),
+                      _infoRow(Icons.place, 'Landmark', widget.landmark),
                       const Divider(color: Colors.white24),
-                      _infoRow(Icons.map, 'Location', location),
+                      _infoRow(Icons.map, 'Location', widget.location),
                       const Spacer(),
-                      // Optional Edit button or close
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton.icon(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(Icons.edit, color: Colors.white70),
-                            label: const Text('Edit', style: TextStyle(color: Colors.white70)),
+                            label: const Text('Edit',
+                                style: TextStyle(color: Colors.white70)),
                           )
                         ],
                       ),
