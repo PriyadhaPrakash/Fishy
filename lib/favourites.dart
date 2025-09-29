@@ -87,7 +87,7 @@ class _FavoPageState extends State<FavoPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
         elevation: 0,
-        leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Navigator.pop(context)),
+
         title: const Text("Favourites", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: widget.favoriteList.isEmpty
