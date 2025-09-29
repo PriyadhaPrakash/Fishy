@@ -1,4 +1,3 @@
-// lib/Home.dart
 import 'package:fishy/Cart.dart';
 import 'package:fishy/Homepage.dart';
 import 'package:fishy/favourites.dart';
@@ -91,7 +90,6 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
             onPressed: () {
-              // Pass favoriteList into FavoPage
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -103,7 +101,6 @@ class _HomeState extends State<Home> {
           ),
           IconButton(
             onPressed: () {
-              // CartPage uses the global cartList, so just push it
               Navigator.push(
                 context,
                 MaterialPageRoute(

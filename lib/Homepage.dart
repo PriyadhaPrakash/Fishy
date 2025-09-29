@@ -26,11 +26,12 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<Map<String, String>> categories = [
-    {"name": "Salmon", "price": "\$25/kg"},
-    {"name": "Tuna", "price": "\$20/kg"},
-    {"name": "Cod", "price": "\$15/kg"},
-    {"name": "Shrimp", "price": "\$18/kg"},
+    {"name": "Salmon", "price": "₹100/kg"},
+    {"name": "Tuna", "price": "₹150/kg"},
+    {"name": "Cod", "price": "₹75/kg"},
+    {"name": "Shrimp", "price": "₹250/kg"},
   ];
+
 
   List<bool> isFavorite = [];
 

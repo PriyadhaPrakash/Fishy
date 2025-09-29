@@ -207,7 +207,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => EditProfilePage(profileData: {},) // <- your edit page
+                                  builder: (context) => EditProfilePage(profileData: {},), // <- your edit page
                                 ),
                               );
                             },

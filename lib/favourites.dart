@@ -1,6 +1,5 @@
-// lib/FavoPage.dart
 import 'package:flutter/material.dart';
-import 'package:fishy/Cart.dart'; // adjust path if your project uses a different file name/location
+import 'package:fishy/Cart.dart';
 
 class FavoPage extends StatefulWidget {
   final List<Map<String, String>> favoriteList;
