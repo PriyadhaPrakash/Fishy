@@ -5,6 +5,7 @@ import 'package:fishy/ProductPage.dart';
 import 'package:fishy/Splash.dart';
 import 'package:fishy/intro_page.dart';
 import 'package:fishy/otp_page.dart';
+import 'package:fishy/profile_display_page.dart';
 import 'package:fishy/profile_page.dart';
 import 'package:flutter/material.dart';
 

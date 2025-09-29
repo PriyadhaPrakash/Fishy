@@ -1,6 +1,5 @@
 import 'package:fishy/Cart.dart';
 import 'package:flutter/material.dart';
-import 'ProductPage.dart';
 
 
 class FavoPage extends StatefulWidget {
