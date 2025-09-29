@@ -18,11 +18,11 @@ class _IntroPageState extends State<IntroPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/meat_image.jpg',
+              'assets/intro1.png',
               width: 350,
-              height: 220,
+              height: 190,
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
 
             const Text(
               "Welcome to FreshCatch",

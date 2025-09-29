@@ -1,6 +1,9 @@
+import 'package:fishy/Cart.dart';
 import 'package:flutter/material.dart';
+List<CartItem> cartList = [];
 
 class ProductDetailsPage extends StatelessWidget {
+
   final Map<String, String> product;
   final void Function(Map<String, String>)? onAddToCart;
 
@@ -27,9 +30,9 @@ class ProductDetailsPage extends StatelessWidget {
             product['image'] != null
                 ? (product['image']!.startsWith('assets/')
                 ? Image.asset(product['image']!, height: 200)
-                : Image.network(product['image']!, height: 200))
+                : Image.network(product['image']!, height: 100))
                 : Container(
-              height: 200,
+              height: 100,
               color: Colors.grey[800],
               child: const Icon(Icons.image,
                   size: 100, color: Colors.white54),
@@ -75,11 +78,12 @@ class ProductDetailsPage extends StatelessWidget {
                 onPressed: () {
                   if (onAddToCart != null) {
                     onAddToCart!(product);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Added to cart")),
-                    );
-                  }
+                  }  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Added to cart"),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
                 },
               ),
             ),
