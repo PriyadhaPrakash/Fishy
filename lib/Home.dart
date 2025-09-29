@@ -1,3 +1,4 @@
+// lib/Home.dart
 import 'package:fishy/Cart.dart';
 import 'package:fishy/Homepage.dart';
 import 'package:fishy/favourites.dart';
@@ -25,6 +26,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
+  List<Map<String, String>> favoriteList = [];
+
   void toggleFavorite(Map<String, String> item) {
     setState(() {
       if (favoriteList.contains(item)) {
@@ -35,21 +38,19 @@ class _HomeState extends State<Home> {
     });
   }
 
-  List<Map<String, String>> favoriteList = [];
-
   List<Widget> _screens() {
     return [
       HomePage(
         favoriteList: favoriteList,
         onToggleFavorite: toggleFavorite,
       ),
-      Center(
+      const Center(
         child: Text(
           "Store Page",
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
       ),
-      Center(
+      const Center(
         child: Text(
           "My Orders",
           style: TextStyle(color: Colors.white, fontSize: 24),
@@ -75,30 +76,26 @@ class _HomeState extends State<Home> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "FreshCatch",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily: 'Roboto',
-                  ),
-                ),
-              ],
+          children: const [
+            Text(
+              "FreshCatch",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'Roboto',
+              ),
             ),
           ],
         ),
         actions: [
           IconButton(
             onPressed: () {
+              // Pass favoriteList into FavoPage
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      FavoPage(favoriteList: favoriteList),
+                  builder: (context) => FavoPage(favoriteList: favoriteList),
                 ),
               );
             },
@@ -106,10 +103,11 @@ class _HomeState extends State<Home> {
           ),
           IconButton(
             onPressed: () {
+              // CartPage uses the global cartList, so just push it
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CartPage(cartItems: []),
+                  builder: (context) => const CartPage(),
                 ),
               );
             },
