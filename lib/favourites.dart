@@ -1,6 +1,6 @@
-import 'package:fishy/Cart.dart';
+// lib/FavoPage.dart
 import 'package:flutter/material.dart';
-
+import 'package:fishy/Cart.dart'; // adjust path if your project uses a different file name/location
 
 class FavoPage extends StatefulWidget {
   final List<Map<String, String>> favoriteList;
@@ -12,12 +12,30 @@ class FavoPage extends StatefulWidget {
 }
 
 class _FavoPageState extends State<FavoPage> {
-  List<CartItem> cartList = []; // store items added to cart
-
   Widget _buildImage(Map<String, String> item, {double? height, double? width, BoxFit fit = BoxFit.cover}) {
     final img = item['image'] ?? '';
-    if (img.isEmpty) return Container(height: height ?? 180, width: width ?? double.infinity, color: Colors.grey.shade800, child: const Icon(Icons.image, size: 80, color: Colors.white54));
+    if (img.isEmpty) {
+      return Container(
+        height: height ?? 180,
+        width: width ?? double.infinity,
+        color: Colors.grey.shade800,
+        child: const Icon(Icons.image, size: 80, color: Colors.white54),
+      );
+    }
     return img.startsWith('assets/') ? Image.asset(img, height: height, width: width, fit: fit) : Image.network(img, height: height, width: width, fit: fit);
+  }
+
+  void _addToGlobalCart(Map<String, String> product) {
+    final name = product['name'] ?? 'Unnamed';
+    final price = product['price'] ?? '0';
+    final image = product['image'] ?? '';
+
+    final existingIndex = cartList.indexWhere((e) => e.name == name);
+    if (existingIndex != -1) {
+      cartList[existingIndex].quantity++;
+    } else {
+      cartList.add(CartItem(name: name, price: price, image: image));
+    }
   }
 
   Future<void> _showItemDetails(BuildContext context, Map<String, String> item) {
@@ -48,17 +66,9 @@ class _FavoPageState extends State<FavoPage> {
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     onPressed: () {
                       Navigator.pop(context);
-
-                      // Add to cart
-                      final existing = cartList.indexWhere((e) => e.name == item['name']);
-                      if (existing != -1) {
-                        cartList[existing].quantity++;
-                      } else {
-                        cartList.add(CartItem(name: item['name']!, price: item['price']!, image: item['image'] ?? ''));
-                      }
-
+                      _addToGlobalCart(item);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to cart')));
-                      setState(() {}); // refresh state if needed
+                      setState(() {}); // optional, keeps UI in sync if you show counts locally
                     },
                     child: const Text('Add to Cart', style: TextStyle(color: Colors.white)),
                   ),
@@ -80,7 +90,6 @@ class _FavoPageState extends State<FavoPage> {
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Navigator.pop(context)),
         title: const Text("Favourites", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
-
       ),
       body: widget.favoriteList.isEmpty
           ? const Center(child: Text("No favourites yet", style: TextStyle(color: Colors.white)))
@@ -119,7 +128,16 @@ class _FavoPageState extends State<FavoPage> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Icon(Icons.favorite, color: Colors.red),
+                    const Icon(Icons.favorite, color: Colors.red), // heart unchanged
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
+                      onPressed: () {
+                        _addToGlobalCart(item);
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to cart')));
+                        setState(() {}); // optional UI refresh
+                      },
+                    ),
                   ],
                 ),
               ),
