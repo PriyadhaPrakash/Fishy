@@ -1,5 +1,6 @@
 // profile_display_page.dart
 import 'dart:io';
+import 'package:fishy/Editprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -203,7 +204,14 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton.icon(
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfilePage(), // <- your edit page
+                                ),
+                              );
+                            },
                             icon: const Icon(Icons.edit, color: Colors.white70),
                             label: const Text('Edit',
                                 style: TextStyle(color: Colors.white70)),
