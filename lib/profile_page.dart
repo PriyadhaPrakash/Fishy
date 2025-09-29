@@ -96,7 +96,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill in all fields before continuing.'),
-          backgroundColor: Colors.red,
         ),
       );
       return;
