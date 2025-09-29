@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
       } else {
         setState(() {
           _locationController.text =
-              'Lat: ${position.latitude}, Lon: ${position.longitude}';
+          'Lat: ${position.latitude}, Lon: ${position.longitude}';
         });
       }
     } catch (e) {
@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            const Home(),
+        const Home(),
       ),
     );
   }
@@ -187,19 +187,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   suffixIcon: _isFetching
                       ? const Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
+                    padding: EdgeInsets.all(12.0),
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
                       : IconButton(
-                          icon: const Icon(
-                            Icons.my_location,
-                            color: Colors.white,
-                          ),
-                          onPressed: _getCurrentLocation,
-                        ),
+                    icon: const Icon(
+                      Icons.my_location,
+                      color: Colors.white,
+                    ),
+                    onPressed: _getCurrentLocation,
+                  ),
                 ),
               ),
               const SizedBox(height: 30),

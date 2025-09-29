@@ -1,6 +1,7 @@
+import 'package:fishy/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'profile_page.dart';
+
 
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
