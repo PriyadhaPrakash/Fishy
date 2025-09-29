@@ -1,4 +1,5 @@
 
+import 'package:fishy/Cart.dart';
 import 'package:fishy/Homepage.dart';
 import 'package:fishy/favourites.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,12 @@ class _HomeState extends State<Home> {
               builder: (context) => FavoPage(favoriteList: favoriteList),
             ),
           );}, icon: const Icon(Icons.favorite_border_sharp,color: Colors.white,)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart,color: Colors.white,)),
+          IconButton(onPressed: () {Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CartPage(cartItems: [],),
+            ),
+          );}, icon: const Icon(Icons.shopping_cart,color: Colors.white,)),
 
 
         ],
