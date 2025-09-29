@@ -1,21 +1,60 @@
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  final Map<String, String> profileData; // Pass existing data
+
+  const EditProfilePage({super.key, required this.profileData});
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  late TextEditingController nameController;
+  late TextEditingController landmarkController;
+  late TextEditingController addressController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with existing data
+    nameController = TextEditingController(text: widget.profileData['name']);
+    landmarkController =
+        TextEditingController(text: widget.profileData['landmark']);
+    addressController =
+        TextEditingController(text: widget.profileData['address']);
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    landmarkController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
+  void saveProfile() {
+    // Update the profile data (you can send it to backend or local storage)
+    final updatedData = {
+      'name': nameController.text,
+      'landmark': landmarkController.text,
+      'address': addressController.text,
+    };
+
+    // For now, just show a SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Profile updated successfully!')),
+    );
+
+    Navigator.pop(context, updatedData); // Go back to profile page
+  }
+
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(' Edit Profile',style: TextStyle(color: Colors.white),),
-        backgroundColor: const Color(0xFF151F24),
+        title: const Text('Edit Profile'),
+        backgroundColor: const Color(0xFF1E2A32),
       ),
       backgroundColor: const Color(0xFF151F24),
       body: Padding(
@@ -90,8 +129,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
     );
-=======
-    return Scaffold();
->>>>>>> dd2b3f9c23ffc3a067d0d52f1fe95661e46d36a3
   }
 }
