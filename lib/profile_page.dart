@@ -101,90 +101,93 @@ class _ProfilePageState extends State<ProfilePage> {
       return;
     }
 
-    Navigator.pushReplacement(
+    // Clear the navigation stack and go to Home
+    Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (context) => const Home(),
-      ),
+      MaterialPageRoute(builder: (context) => const Home()),
+          (Route<dynamic> route) => false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF151F24),
-      appBar: AppBar(
-        leading: const BackButton(color: Colors.white),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(), // dismiss keyboard
+      child: Scaffold(
         backgroundColor: const Color(0xFF151F24),
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-          child: Text(
-            "Delivery Address",
-            style: TextStyle(color: Colors.white, fontSize: 25),
+        appBar: AppBar(
+          automaticallyImplyLeading: false, // removes back button
+          backgroundColor: const Color(0xFF151F24),
+          title: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+            child: Text(
+              "Delivery Address",
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildTextField(_nameController, 'Name'),
-              const SizedBox(height: 16),
-              _buildTextField(_addressController, 'Address'),
-              const SizedBox(height: 16),
-              _buildTextField(_landmarkController, 'Landmark'),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _locationController,
-                readOnly: true,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Current Location',
-                  labelStyle: const TextStyle(color: Colors.white70),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white38),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  suffixIcon: _isFetching
-                      ? const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildTextField(_nameController, 'Name'),
+                const SizedBox(height: 16),
+                _buildTextField(_addressController, 'Address'),
+                const SizedBox(height: 16),
+                _buildTextField(_landmarkController, 'Landmark'),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _locationController,
+                  readOnly: true,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: 'Current Location',
+                    labelStyle: const TextStyle(color: Colors.white70),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white38),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  )
-                      : IconButton(
-                    icon: const Icon(
-                      Icons.my_location,
-                      color: Colors.white,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    onPressed: _getCurrentLocation,
+                    suffixIcon: _isFetching
+                        ? const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                        : IconButton(
+                      icon: const Icon(
+                        Icons.my_location,
+                        color: Colors.white,
+                      ),
+                      onPressed: _getCurrentLocation,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: _continueToHome,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 50,
-                    vertical: 15,
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  onPressed: _continueToHome,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  child:
+                  const Text("Continue", style: TextStyle(fontSize: 18)),
                 ),
-                child:
-                const Text("Continue", style: TextStyle(fontSize: 18)),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
