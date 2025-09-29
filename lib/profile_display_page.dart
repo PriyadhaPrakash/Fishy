@@ -1,3 +1,4 @@
+// profile_display_page.dart
 import 'dart:io';
 import 'package:fishy/Editprofile.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
   File? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
+  // Pick image from gallery or camera
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source, imageQuality: 85);
     if (pickedFile != null) {
@@ -34,7 +36,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
     }
   }
 
-
+  // Show options to pick image
   void _showImageOptions() {
     showModalBottomSheet(
       context: context,
@@ -206,7 +208,7 @@ class _ProfileDisplayPageState extends State<ProfileDisplayPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => EditProfilePage(), // <- your edit page
+                                  builder: (context) => EditProfilePage(profileData: {},), // <- your edit page
                                 ),
                               );
                             },
