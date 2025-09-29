@@ -1,13 +1,22 @@
-
 import 'package:fishy/Cart.dart';
 import 'package:fishy/Homepage.dart';
 import 'package:fishy/favourites.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fishy/profile_display_page.dart';
 
 class Home extends StatefulWidget {
+  final String? name;
+  final String? address;
+  final String? landmark;
+  final String? location;
 
-  const Home({super.key});
+  const Home({
+    super.key,
+    this.name,
+    this.address,
+    this.landmark,
+    this.location,
+  });
 
   @override
   State<Home> createState() => _HomeState();
@@ -15,6 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+
   void toggleFavorite(Map<String, String> item) {
     setState(() {
       if (favoriteList.contains(item)) {
@@ -26,6 +36,7 @@ class _HomeState extends State<Home> {
   }
 
   List<Map<String, String>> favoriteList = [];
+
   List<Widget> _screens() {
     return [
       HomePage(
@@ -44,11 +55,11 @@ class _HomeState extends State<Home> {
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
       ),
-      Center(
-        child: Text(
-          "Profile Page",
-          style: TextStyle(color: Colors.white, fontSize: 24),
-        ),
+      ProfileDisplayPage(
+        name: widget.name ?? '',
+        address: widget.address ?? '',
+        landmark: widget.landmark ?? '',
+        location: widget.location ?? '',
       ),
     ];
   }
@@ -74,27 +85,34 @@ class _HomeState extends State<Home> {
                     fontFamily: 'Roboto',
                   ),
                 ),
-
               ],
             ),
-
           ],
         ),
         actions: [
-          IconButton(onPressed: () { Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FavoPage(favoriteList: favoriteList),
-            ),
-          );}, icon: const Icon(Icons.favorite_border_sharp,color: Colors.white,)),
-          IconButton(onPressed: () {Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CartPage(cartItems: [],),
-            ),
-          );}, icon: const Icon(Icons.shopping_cart,color: Colors.white,)),
-
-
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      FavoPage(favoriteList: favoriteList),
+                ),
+              );
+            },
+            icon: const Icon(Icons.favorite_border_sharp, color: Colors.white),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(cartItems: []),
+                ),
+              );
+            },
+            icon: const Icon(Icons.shopping_cart, color: Colors.white),
+          ),
         ],
       ),
       body: _screens()[_selectedIndex],
@@ -128,10 +146,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-
-
-
-
     );
   }
 }
