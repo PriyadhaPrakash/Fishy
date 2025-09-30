@@ -20,13 +20,7 @@ class _OtpPageState extends State<OtpPage> {
       backgroundColor: const Color(0xFF151F24),
       appBar: AppBar(
         backgroundColor: const Color(0xFF151F24),
-        leading: const BackButton(color: Colors.white),
-        title: const Text(
-          "Verification",
-          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18,fontFamily: 'Roboto'),
-        ),
-        centerTitle: true,
-        elevation: 0,
+
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,7 +29,7 @@ class _OtpPageState extends State<OtpPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 100),
               const Text(
                 "Enter Code",
                 textAlign: TextAlign.center,

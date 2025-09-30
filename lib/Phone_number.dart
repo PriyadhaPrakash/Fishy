@@ -24,7 +24,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 90),
+          const SizedBox(height: 100),
           const Text(
             'WELCOME BACK',
             style: TextStyle(
