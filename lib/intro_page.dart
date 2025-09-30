@@ -22,21 +22,21 @@ class _IntroPageState extends State<IntroPage> {
               width: 350,
               height: 190,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 0),
 
             const Text(
               "Welcome to FreshCatch",
               style: TextStyle(
-                fontSize: 26,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 letterSpacing: 1.3,
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 35),
 
             SizedBox(
-              width: 180,
+              width: 150,
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
